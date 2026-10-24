@@ -14,7 +14,7 @@ export default function Home() {
           <a className="btn" href="#begin">Start here</a>
         </div>
         <figure className="hero-photo">
-          <div className="polaroid tilt"><img src="/assets/photos/Selfie.jpg" alt="A selfie of the two of us smiling" width="1280" height="960" /><span className="hand cap">us</span></div>
+          <div className="polaroid tilt"><img src="/assets/photos/us.jpg" alt="A selfie of the two of us smiling" width="1280" height="960" /><span className="hand cap">us</span></div>
         </figure>
       </section>
 
