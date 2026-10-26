@@ -1,6 +1,27 @@
+
+import { useRef, useState } from "react";
 import { Link } from "react-router-dom";
 
 export default function Family() {
+  const audioRef = useRef(null);
+  const [playing, setPlaying] = useState(false);
+
+  const toggleMusic = async () => {
+    const audio = audioRef.current;
+
+    if (!audio) return;
+
+    if (audio.paused) {
+      try {
+        await audio.play();
+      } catch {
+        setPlaying(false);
+      }
+    } else {
+      audio.pause();
+    }
+  };
+
   const photoFrame = {
     width: "100%",
     maxWidth: "440px",
@@ -78,7 +99,7 @@ export default function Family() {
           display: "flex",
           justifyContent: "flex-start",
           paddingLeft: "clamp(0px, 5vw, 55px)",
-          marginBottom: "35px",
+          marginBottom: "25px",
         }}
       >
         <div
@@ -94,6 +115,56 @@ export default function Family() {
             style={photoStyle}
           />
         </div>
+      </section>
+
+      {/* Music moment */}
+      <section
+        style={{
+          textAlign: "center",
+          margin: "0 auto 45px",
+          padding: "0 12px",
+        }}
+      >
+        <p
+          className="hand"
+          style={{
+            fontSize: "clamp(23px, 4vw, 30px)",
+            lineHeight: 1.5,
+            margin: "0 0 16px",
+            color: "#896875",
+          }}
+        >
+          You wanna know how I feel when I look at this picture? ♡
+        </p>
+
+        <audio
+          ref={audioRef}
+          src="/assets/audio/our-song.mp3"
+          preload="none"
+          onPlay={() => setPlaying(true)}
+          onPause={() => setPlaying(false)}
+          onEnded={() => setPlaying(false)}
+        />
+
+        <button
+          type="button"
+          onClick={toggleMusic}
+          style={{
+            display: "inline-flex",
+            alignItems: "center",
+            justifyContent: "center",
+            gap: "9px",
+            padding: "11px 22px",
+            border: "1px solid #b87891",
+            borderRadius: "28px",
+            background: "#fff7fa",
+            color: "#9c526f",
+            fontSize: "14px",
+            cursor: "pointer",
+          }}
+        >
+          {playing ? "Ⅱ Pause the song" : "▶ Play a little something"}
+        </button>
       </section>
 
       {/* Message */}
