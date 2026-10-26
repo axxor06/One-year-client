@@ -110,7 +110,7 @@ export default function Family() {
         </div>
       </section>
 
-      {/* Our little future dream */}
+      {/* A little glimpse of our future */}
       <section
         style={{
           maxWidth: "560px",
@@ -133,7 +133,7 @@ export default function Family() {
             color: "#b47c94",
           }}
         >
-          A little thought of mine
+          Just a little daydream
         </p>
 
         <h2
@@ -146,7 +146,7 @@ export default function Family() {
             margin: "0 0 18px",
           }}
         >
-          Do you know what goes through my mind when I see this picture?
+          Do you know what I imagine when I look at this picture?
         </h2>
 
         <p
@@ -157,8 +157,10 @@ export default function Family() {
             margin: "0 0 14px",
           }}
         >
-          I imagine us coming back to this same temple years from now...
-          only this time, you'll be my bride, and I'll be your groom.
+          Maybe it's the peaceful atmosphere, the feeling of being
+          surrounded by the people we love, or just the way everything
+          felt that day. But it makes me imagine a little moment far
+          away in the future.
         </p>
 
         <p
@@ -169,10 +171,12 @@ export default function Family() {
             margin: "0 0 24px",
           }}
         >
-          Maybe we'll stand here holding hands, look back at how far
-          we've come, and smile because we actually made it, kanna.
-          And somehow, whenever I imagine that moment, this song
-          starts playing in my head. ♡
+          You and me, a few years older, standing together with the
+          same silly smiles, looking at each other like we still can't
+          believe we got to have this life together. No rushing, no
+          distance, no wondering when we'll meet next. Just us, finally
+          getting to live all those little moments we've dreamed about.
+          ♡
         </p>
 
         <audio
@@ -188,7 +192,7 @@ export default function Family() {
             display: "inline-flex",
             alignItems: "center",
             justifyContent: "center",
-            gap: "11px",
+            gap: "10px",
             padding: "14px 25px",
             border: "1px solid #d8a5b8",
             borderRadius: "30px",
@@ -198,16 +202,10 @@ export default function Family() {
             fontSize: "14px",
             boxShadow: "0 5px 16px rgba(150, 90, 120, 0.09)",
             cursor: "pointer",
-            transition: "transform 0.2s ease",
           }}
         >
-          <span
-            aria-hidden="true"
-            style={{ fontSize: "14px" }}
-          >
-            ♡
-          </span>
-          Play the song in my head
+          <span aria-hidden="true">♫</span>
+          This is what I imagine
         </button>
 
         <p
@@ -218,7 +216,7 @@ export default function Family() {
             margin: "20px 0 0",
           }}
         >
-          One day, us in that temple again. For real. ♡
+          I hope we get to live that little dream someday. ♡
         </p>
       </section>
 
