@@ -110,7 +110,7 @@ export default function Family() {
         </div>
       </section>
 
-      {/* A little glimpse of our future */}
+      {/* The feeling this picture gives me */}
       <section
         style={{
           maxWidth: "560px",
@@ -126,14 +126,14 @@ export default function Family() {
       >
         <p
           style={{
-            margin: "0 0 16px",
+            margin: "0 0 12px",
             fontSize: "10px",
             letterSpacing: "2.5px",
             textTransform: "uppercase",
             color: "#b47c94",
           }}
         >
-          Just a little daydream
+          A little secret ♡
         </p>
 
         <h2
@@ -146,7 +146,7 @@ export default function Family() {
             margin: "0 0 18px",
           }}
         >
-          Do you know what I imagine when I look at this picture?
+          You know what happens when I look at this picture?
         </h2>
 
         <p
@@ -157,10 +157,9 @@ export default function Family() {
             margin: "0 0 14px",
           }}
         >
-          Maybe it's the peaceful atmosphere, the feeling of being
-          surrounded by the people we love, or just the way everything
-          felt that day. But it makes me imagine a little moment far
-          away in the future.
+          I get this weird little feeling in my stomach, and suddenly
+          I'm smiling at my screen like an idiot. I don't even know
+          how to explain it properly.
         </p>
 
         <p
@@ -171,12 +170,14 @@ export default function Family() {
             margin: "0 0 24px",
           }}
         >
-          You and me, a few years older, standing together with the
-          same silly smiles, looking at each other like we still can't
-          believe we got to have this life together. No rushing, no
-          distance, no wondering when we'll meet next. Just us, finally
-          getting to live all those little moments we've dreamed about.
-          ♡
+          And then there's a song that starts playing in my head,
+          and for a second, everything else goes quiet. I look at
+          you and wonder how it would feel to stand in front of you
+          someday, look into those same eyes, and remember all the
+          little things it took for us to get there. All the years,
+          all the waiting, all the times we missed each other. Just
+          you and me, finally there together. I think that's why this
+          picture makes me feel things I can't really put into words. ♡
         </p>
 
         <audio
@@ -204,20 +205,8 @@ export default function Family() {
             cursor: "pointer",
           }}
         >
-          <span aria-hidden="true">♫</span>
-          This is what I imagine
+          ♡ There's a song for this feeling
         </button>
-
-        <p
-          className="hand"
-          style={{
-            fontSize: "17px",
-            color: "#b47c94",
-            margin: "20px 0 0",
-          }}
-        >
-          I hope we get to live that little dream someday. ♡
-        </p>
       </section>
 
       {/* Message */}
