@@ -1,4 +1,3 @@
-```jsx
 import { Link } from "react-router-dom";
 import { chapters } from "../data/story";
 
@@ -42,4 +41,3 @@ export default function Story() {
     </div>
   );
 }
-```
