@@ -1,10 +1,11 @@
-
 import { useRef, useState } from "react";
 import { Link } from "react-router-dom";
 
 export default function Family() {
   const audioRef = useRef(null);
   const [playing, setPlaying] = useState(false);
+  const [currentTime, setCurrentTime] = useState(0);
+  const [duration, setDuration] = useState(0);
 
   const toggleMusic = async () => {
     const audio = audioRef.current;
@@ -20,6 +21,15 @@ export default function Family() {
     } else {
       audio.pause();
     }
+  };
+
+  const formatTime = (time) => {
+    if (!Number.isFinite(time)) return "0:00";
+
+    const minutes = Math.floor(time / 60);
+    const seconds = Math.floor(time % 60);
+
+    return `${minutes}:${String(seconds).padStart(2, "0")}`;
   };
 
   const photoFrame = {
@@ -120,9 +130,14 @@ export default function Family() {
       {/* Music moment */}
       <section
         style={{
-          textAlign: "center",
+          maxWidth: "440px",
           margin: "0 auto 45px",
-          padding: "0 12px",
+          padding: "22px",
+          background: "#fff7fa",
+          border: "1px solid #f0dce4",
+          borderRadius: "18px",
+          boxSizing: "border-box",
+          textAlign: "center",
         }}
       >
         <p
@@ -130,41 +145,89 @@ export default function Family() {
           style={{
             fontSize: "clamp(23px, 4vw, 30px)",
             lineHeight: 1.5,
-            margin: "0 0 16px",
+            margin: "0 0 20px",
             color: "#896875",
           }}
         >
-          You wanna know how I feel when I look at this picture? ♡
+          You wanna know how I feel when I look at this picture?
         </p>
 
         <audio
           ref={audioRef}
           src="/assets/audio/our-song.mp3"
-          preload="none"
+          preload="metadata"
           onPlay={() => setPlaying(true)}
           onPause={() => setPlaying(false)}
-          onEnded={() => setPlaying(false)}
+          onEnded={() => {
+            setPlaying(false);
+            setCurrentTime(0);
+          }}
+          onTimeUpdate={(e) =>
+            setCurrentTime(e.currentTarget.currentTime)
+          }
+          onLoadedMetadata={(e) =>
+            setDuration(e.currentTarget.duration)
+          }
         />
 
+        {/* Play / Pause */}
         <button
           type="button"
           onClick={toggleMusic}
+          aria-label={playing ? "Pause music" : "Play music"}
           style={{
-            display: "inline-flex",
-            alignItems: "center",
-            justifyContent: "center",
-            gap: "9px",
-            padding: "11px 22px",
-            border: "1px solid #b87891",
-            borderRadius: "28px",
-            background: "#fff7fa",
-            color: "#9c526f",
-            fontSize: "14px",
+            width: "48px",
+            height: "48px",
+            borderRadius: "50%",
+            border: "none",
+            background: "#b87891",
+            color: "#fff",
+            fontSize: "18px",
             cursor: "pointer",
+            marginBottom: "18px",
           }}
         >
-          {playing ? "Ⅱ Pause the song" : "▶ Play a little something"}
+          {playing ? "Ⅱ" : "▶"}
         </button>
+
+        {/* Progress bar */}
+        <input
+          type="range"
+          min="0"
+          max={duration || 0}
+          step="0.1"
+          value={Math.min(currentTime, duration || 0)}
+          onChange={(e) => {
+            const time = Number(e.target.value);
+
+            if (audioRef.current) {
+              audioRef.current.currentTime = time;
+            }
+
+            setCurrentTime(time);
+          }}
+          aria-label="Song progress"
+          style={{
+            display: "block",
+            width: "100%",
+            accentColor: "#b87891",
+            cursor: "pointer",
+          }}
+        />
+
+        {/* Song timestamps */}
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            marginTop: "8px",
+            fontSize: "12px",
+            color: "#896875",
+          }}
+        >
+          <span>{formatTime(currentTime)}</span>
+          <span>{formatTime(duration)}</span>
+        </div>
       </section>
 
       {/* Message */}
