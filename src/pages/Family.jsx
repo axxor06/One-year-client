@@ -1,35 +1,18 @@
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import { Link } from "react-router-dom";
 
 export default function Family() {
   const audioRef = useRef(null);
-  const [playing, setPlaying] = useState(false);
-  const [currentTime, setCurrentTime] = useState(0);
-  const [duration, setDuration] = useState(0);
 
-  const toggleMusic = async () => {
-    const audio = audioRef.current;
+  const playSong = async () => {
+    if (!audioRef.current) return;
 
-    if (!audio) return;
-
-    if (audio.paused) {
-      try {
-        await audio.play();
-      } catch {
-        setPlaying(false);
-      }
-    } else {
-      audio.pause();
+    try {
+      audioRef.current.currentTime = 0;
+      await audioRef.current.play();
+    } catch (error) {
+      console.error("Couldn't play the song:", error);
     }
-  };
-
-  const formatTime = (time) => {
-    if (!Number.isFinite(time)) return "0:00";
-
-    const minutes = Math.floor(time / 60);
-    const seconds = Math.floor(time % 60);
-
-    return `${minutes}:${String(seconds).padStart(2, "0")}`;
   };
 
   const photoFrame = {
@@ -109,7 +92,7 @@ export default function Family() {
           display: "flex",
           justifyContent: "flex-start",
           paddingLeft: "clamp(0px, 5vw, 55px)",
-          marginBottom: "25px",
+          marginBottom: "32px",
         }}
       >
         <div
@@ -121,113 +104,122 @@ export default function Family() {
         >
           <img
             src="/assets/photos/family.jpg"
-            alt="A memory with family"
+            alt="A special memory with you and your family"
             style={photoStyle}
           />
         </div>
       </section>
 
-      {/* Music moment */}
+      {/* Our little future dream */}
       <section
         style={{
-          maxWidth: "440px",
-          margin: "0 auto 45px",
-          padding: "22px",
-          background: "#fff7fa",
-          border: "1px solid #f0dce4",
-          borderRadius: "18px",
-          boxSizing: "border-box",
+          maxWidth: "560px",
+          margin: "0 auto 48px",
+          padding: "clamp(24px, 5vw, 38px) 20px",
           textAlign: "center",
+          background:
+            "linear-gradient(145deg, #fff8fb 0%, #fff1f6 100%)",
+          border: "1px solid #f0dce4",
+          borderRadius: "22px",
+          boxSizing: "border-box",
         }}
       >
         <p
-          className="hand"
           style={{
-            fontSize: "clamp(23px, 4vw, 30px)",
-            lineHeight: 1.5,
-            margin: "0 0 20px",
-            color: "#896875",
+            margin: "0 0 16px",
+            fontSize: "10px",
+            letterSpacing: "2.5px",
+            textTransform: "uppercase",
+            color: "#b47c94",
           }}
         >
-          You wanna know how I feel when I look at this picture?
+          A little thought of mine
+        </p>
+
+        <h2
+          className="hand"
+          style={{
+            fontSize: "clamp(25px, 5vw, 34px)",
+            lineHeight: 1.5,
+            fontWeight: "normal",
+            color: "#896875",
+            margin: "0 0 18px",
+          }}
+        >
+          Do you know what goes through my mind when I see this picture?
+        </h2>
+
+        <p
+          style={{
+            fontSize: "15px",
+            lineHeight: 1.9,
+            color: "#896875",
+            margin: "0 0 14px",
+          }}
+        >
+          I imagine us coming back to this same temple years from now...
+          only this time, you'll be my bride, and I'll be your groom.
+        </p>
+
+        <p
+          style={{
+            fontSize: "15px",
+            lineHeight: 1.9,
+            color: "#896875",
+            margin: "0 0 24px",
+          }}
+        >
+          Maybe we'll stand here holding hands, look back at how far
+          we've come, and smile because we actually made it, kanna.
+          And somehow, whenever I imagine that moment, this song
+          starts playing in my head. ♡
         </p>
 
         <audio
           ref={audioRef}
           src="/assets/audio/our-song.mp3"
-          preload="metadata"
-          onPlay={() => setPlaying(true)}
-          onPause={() => setPlaying(false)}
-          onEnded={() => {
-            setPlaying(false);
-            setCurrentTime(0);
-          }}
-          onTimeUpdate={(e) =>
-            setCurrentTime(e.currentTarget.currentTime)
-          }
-          onLoadedMetadata={(e) =>
-            setDuration(e.currentTarget.duration)
-          }
+          preload="none"
         />
 
-        {/* Play / Pause */}
         <button
           type="button"
-          onClick={toggleMusic}
-          aria-label={playing ? "Pause music" : "Play music"}
+          onClick={playSong}
           style={{
-            width: "48px",
-            height: "48px",
-            borderRadius: "50%",
-            border: "none",
-            background: "#b87891",
-            color: "#fff",
-            fontSize: "18px",
+            display: "inline-flex",
+            alignItems: "center",
+            justifyContent: "center",
+            gap: "11px",
+            padding: "14px 25px",
+            border: "1px solid #d8a5b8",
+            borderRadius: "30px",
+            background: "#fffdfc",
+            color: "#98627a",
+            fontFamily: "inherit",
+            fontSize: "14px",
+            boxShadow: "0 5px 16px rgba(150, 90, 120, 0.09)",
             cursor: "pointer",
-            marginBottom: "18px",
+            transition: "transform 0.2s ease",
           }}
         >
-          {playing ? "Ⅱ" : "▶"}
+          <span
+            aria-hidden="true"
+            style={{ fontSize: "14px" }}
+          >
+            ♡
+          </span>
+          Play the song in my head
         </button>
 
-        {/* Progress bar */}
-        <input
-          type="range"
-          min="0"
-          max={duration || 0}
-          step="0.1"
-          value={Math.min(currentTime, duration || 0)}
-          onChange={(e) => {
-            const time = Number(e.target.value);
-
-            if (audioRef.current) {
-              audioRef.current.currentTime = time;
-            }
-
-            setCurrentTime(time);
-          }}
-          aria-label="Song progress"
+        <p
+          className="hand"
           style={{
-            display: "block",
-            width: "100%",
-            accentColor: "#b87891",
-            cursor: "pointer",
-          }}
-        />
-
-        {/* Song timestamps */}
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            marginTop: "8px",
-            fontSize: "12px",
-            color: "#896875",
+            fontSize: "17px",
+            color: "#b47c94",
+            margin: "20px 0 0",
           }}
         >
-          <span>{formatTime(currentTime)}</span>
-          <span>{formatTime(duration)}</span>
-        </div>
+          One day, us in that temple again. For real. ♡
+        </p>
       </section>
 
       {/* Message */}
